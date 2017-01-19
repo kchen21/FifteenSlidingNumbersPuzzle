@@ -33,6 +33,18 @@ class Board {
     this.grid[pos2[0]][pos2[1]] = temp;
   }
 
+  flatten() {
+    const flattened = [];
+
+    for (let rowIdx = 0; rowIdx < 4; rowIdx++) {
+      for (let colIdx = 0; colIdx < 4; colIdx++) {
+        flattened.push(this.grid[rowIdx][colIdx]);
+      }
+    }
+
+    return flattened;
+  }
+
   static makeGrid() {
     const grid = [];
 

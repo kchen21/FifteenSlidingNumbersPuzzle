@@ -4,12 +4,39 @@ class View {
     this.$el = $el;
 
     this.setupBoard();
+    this.setupEvents();
   }
 
   setupBoard() {
     const $grid = $('<ul>');
+    $grid.addClass("grid");
     $grid.addClass("group");
 
+    this.appendSquares($grid);
+
+    this.$el.append($grid);
+  }
+
+  setupEvents() {
+    const view = this;
+
+    $('.square').click( (event) => {
+      const $square = event.currentTarget;
+      const currentPos = $square.data("pos");
+      this.game.playMove(currentPos);
+      view.updateBoard();
+    });
+  }
+
+  updateBoard() {
+    const $grid = $('.grid');
+    const flattenedBoard = this.game.flattenedBoard();
+
+    $grid.empty();
+    this.appendSquares($grid);
+  }
+
+  appendSquares($grid) {
     for (let rowIdx = 0; rowIdx < 4; rowIdx++) {
       for (let colIdx = 0; colIdx < 4; colIdx++) {
         let $square = $('<li>');
@@ -20,21 +47,7 @@ class View {
         $grid.append($square);
       }
     }
-
-    this.$el.append($grid);
   }
-
-  setupEvents() {
-    const view = this;
-
-    $('.square').click( (event) => {
-      const $square = event.currentTarget;
-      this.game.playMove($square.data("pos"));
-      view.updateBoard();
-    });
-  }
-
-  updateBoard() {}
 }
 
 module.exports = View;
