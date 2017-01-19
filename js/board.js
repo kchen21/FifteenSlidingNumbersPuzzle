@@ -4,7 +4,7 @@ class Board {
   }
 
   populateGrid() {
-    const gridElements = ["space"];
+    const gridElements = [" "];
 
     for (let i = 1; i <= 15; i++) {
       gridElements.push(i.toString());

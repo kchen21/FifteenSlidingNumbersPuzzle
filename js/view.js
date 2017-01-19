@@ -4,7 +4,6 @@ class View {
     this.$el = $el;
 
     this.setupBoard();
-    this.setupEvents();
   }
 
   setupBoard() {
@@ -16,7 +15,7 @@ class View {
         let $square = $('<li>');
         $square.addClass("square");
         $square.data("pos", [rowIdx, colIdx]);
-        $square.html(this.game.board.getElement([rowIdx, colIdx]));
+        $square.html(this.game.getElement([rowIdx, colIdx]));
 
         $grid.append($square);
       }
