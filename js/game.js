@@ -24,6 +24,7 @@ class Game {
 
     if (newPos) {
       this.board.swapElements(currentPos, newPos);
+      return newPos;
     }
   }
 

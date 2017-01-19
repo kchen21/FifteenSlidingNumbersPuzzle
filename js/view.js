@@ -21,10 +21,11 @@ class View {
     const view = this;
 
     $('.square').click( (event) => {
-      const $square = event.currentTarget;
+      const $square = $(event.currentTarget);
       const currentPos = $square.data("pos");
-      this.game.playMove(currentPos);
-      view.updateBoard();
+      if (this.game.playMove(currentPos)) {
+        view.updateBoard();
+      }
     });
   }
 
