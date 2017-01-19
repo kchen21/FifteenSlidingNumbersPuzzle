@@ -4,7 +4,6 @@ class View {
     this.$el = $el;
 
     this.setupBoard();
-    this.setupEvents();
   }
 
   setupBoard() {
@@ -15,6 +14,8 @@ class View {
     this.appendSquares($grid);
 
     this.$el.append($grid);
+
+    this.setupEvents();
   }
 
   setupEvents() {
@@ -35,6 +36,8 @@ class View {
 
     $grid.empty();
     this.appendSquares($grid);
+
+    this.setupEvents();
   }
 
   appendSquares($grid) {
