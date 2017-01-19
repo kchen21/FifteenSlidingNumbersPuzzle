@@ -4,23 +4,38 @@ class View {
     this.$el = $el;
 
     this.setupBoard();
+    this.setupEvents();
   }
 
   setupBoard() {
-    const $ul = $("<ul>");
-    $ul.addClass("group");
+    const $grid = $('<ul>');
+    $grid.addClass("group");
 
     for (let rowIdx = 0; rowIdx < 4; rowIdx++) {
       for (let colIdx = 0; colIdx < 4; colIdx++) {
-        let $li = $("<li>");
-        $li.data("pos", [rowIdx, colIdx]);
+        let $square = $('<li>');
+        $square.addClass("square");
+        $square.data("pos", [rowIdx, colIdx]);
+        $square.html(this.game.board.getElement([rowIdx, colIdx]));
 
-        $ul.append($li);
+        $grid.append($square);
       }
     }
 
-    this.$el.append($ul);
+    this.$el.append($grid);
   }
+
+  setupEvents() {
+    const view = this;
+
+    $('.square').click( (event) => {
+      const $square = event.currentTarget;
+      this.game.playMove($square.data("pos"));
+      view.updateBoard();
+    });
+  }
+
+  updateBoard() {}
 }
 
 module.exports = View;

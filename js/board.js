@@ -27,6 +27,12 @@ class Board {
     this.grid[pos[0]][pos[1]] = el;
   }
 
+  swapElements(pos1, pos2) {
+    const temp = this.grid[pos1[0]][pos1[1]];
+    this.grid[pos1[0]][pos1[1]] = this.grid[pos2[0]][pos2[1]];
+    this.grid[pos2[0]][pos2[1]] = temp;
+  }
+
   static makeGrid() {
     const grid = [];
 
