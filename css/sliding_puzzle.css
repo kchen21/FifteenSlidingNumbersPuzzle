@@ -1,0 +1,42 @@
+html, body, figure, ul, li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  text-align: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+.group:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+  font-weight: bold;
+}
+
+ul {
+  margin: 30px auto;
+  width: 400px;
+  border: 5px solid black;
+}
+
+li {
+  float: left;
+  width: 90px;
+  height: 90px;
+  border: 5px solid black;
+  background: gray;
+  cursor: pointer;
+}
+
+li:hover {
+  background: yellow;
+}
