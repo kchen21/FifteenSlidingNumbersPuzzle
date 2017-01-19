@@ -19,6 +19,14 @@ class Board {
     }
   }
 
+  getElement(pos) {
+    return this.grid[pos[0]][pos[1]];
+  }
+
+  setElement(pos, el) {
+    this.grid[pos[0]][pos[1]] = el;
+  }
+
   static makeGrid() {
     const grid = [];
 
