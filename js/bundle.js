@@ -137,8 +137,13 @@
 	
 	      for (var i = 0; i < flattenedBoard.length; i++) {
 	        for (var j = i + 1; j < flattenedBoard.length; j++) {
-	          if (flattenedBoard[i] > flattenedBoard[j]) {
-	            inversionCount += 1;
+	          var left = flattenedBoard[i];
+	          var right = flattenedBoard[j];
+	
+	          if (left !== " " && right !== " ") {
+	            if (left > right) {
+	              inversionCount += 1;
+	            }
 	          }
 	        }
 	      }

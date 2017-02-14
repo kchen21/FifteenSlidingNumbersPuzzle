@@ -61,8 +61,13 @@ class Game {
 
     for (let i = 0; i < flattenedBoard.length; i++) {
       for (let j = i + 1; j < flattenedBoard.length; j++) {
-        if (flattenedBoard[i] > flattenedBoard[j]) {
-          inversionCount += 1;
+        let left = flattenedBoard[i];
+        let right = flattenedBoard[j];
+
+        if (left !== " " && right !== " ") {
+          if (left > right) {
+            inversionCount += 1;
+          }
         }
       }
     }
