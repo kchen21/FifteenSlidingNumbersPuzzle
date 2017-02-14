@@ -10,8 +10,6 @@ Fifteen Sliding Numbers Puzzle is a re-creation of an original game called 15 Pu
 
 Your goal is to rearrange the numbers in order from least to greatest.
 
-You can only move a numbered square into a spot if that spot is empty.
-
-Click on a numbered square to attempt to move it. If there is an empty spot adjacent to it, it will move to that spot. Otherwise, nothing will happen.
+Click on a numbered square next to the empty, white spot to move it into that spot.
 
 **Good Luck!**
