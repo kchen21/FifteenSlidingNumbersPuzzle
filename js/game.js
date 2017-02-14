@@ -42,12 +42,13 @@ class Game {
 
   isSolvable() {
     const rowIdxOfSpace = this.board.locationOfSpace[0];
+    const numOfInversions = this.numOfInversions();
 
-    if (rowIdxOfSpace % 2 === 0 && this.numOfInversions() % 2 === 0) {
+    if (rowIdxOfSpace % 2 === 0 && numOfInversions % 2 === 0) {
       return false;
     }
 
-    if (rowIdxOfSpace % 2 === 1 && this.numOfInversions() % 2 === 1) {
+    if (rowIdxOfSpace % 2 === 1 && numOfInversions % 2 === 1) {
       return false;
     }
 
@@ -67,6 +68,16 @@ class Game {
     }
 
     return inversionCount;
+  }
+
+  static createSolvablePuzzle() {
+    let newGame = new Game();
+
+    while (!newGame.isSolvable()) {
+      newGame = new Game();
+    }
+
+    return newGame;
   }
 }
 

@@ -47,11 +47,11 @@
 	'use strict';
 	
 	var SlidingPuzzleGame = __webpack_require__(1);
-	var SlidingPuzzleView = __webpack_require__(2);
+	var SlidingPuzzleView = __webpack_require__(3);
 	
 	$(document).ready(function () {
 	  var rootEl = $('.sliding-puzzle');
-	  var game = new SlidingPuzzleGame();
+	  var game = new SlidingPuzzleGame.createSolvablePuzzle();
 	  new SlidingPuzzleView(game, rootEl);
 	});
 
@@ -65,7 +65,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var Board = __webpack_require__(3);
+	var Board = __webpack_require__(2);
 	
 	var Game = function () {
 	  function Game() {
@@ -117,12 +117,13 @@
 	    key: "isSolvable",
 	    value: function isSolvable() {
 	      var rowIdxOfSpace = this.board.locationOfSpace[0];
+	      var numOfInversions = this.numOfInversions();
 	
-	      if (rowIdxOfSpace % 2 === 0 && this.numOfInversions() % 2 === 0) {
+	      if (rowIdxOfSpace % 2 === 0 && numOfInversions % 2 === 0) {
 	        return false;
 	      }
 	
-	      if (rowIdxOfSpace % 2 === 1 && this.numOfInversions() % 2 === 1) {
+	      if (rowIdxOfSpace % 2 === 1 && numOfInversions % 2 === 1) {
 	        return false;
 	      }
 	
@@ -144,6 +145,17 @@
 	
 	      return inversionCount;
 	    }
+	  }], [{
+	    key: "createSolvablePuzzle",
+	    value: function createSolvablePuzzle() {
+	      var newGame = new Game();
+	
+	      while (!newGame.isSolvable()) {
+	        newGame = new Game();
+	      }
+	
+	      return newGame;
+	    }
 	  }]);
 	
 	  return Game;
@@ -153,86 +165,6 @@
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	var View = function () {
-	  function View(game, $el) {
-	    _classCallCheck(this, View);
-	
-	    this.game = game;
-	    this.$el = $el;
-	
-	    this.setupBoard();
-	  }
-	
-	  _createClass(View, [{
-	    key: "setupBoard",
-	    value: function setupBoard() {
-	      var $grid = $('<ul>');
-	      $grid.addClass("grid");
-	      $grid.addClass("group");
-	
-	      this.appendSquares($grid);
-	
-	      this.$el.append($grid);
-	
-	      this.setupEvents();
-	    }
-	  }, {
-	    key: "setupEvents",
-	    value: function setupEvents() {
-	      var _this = this;
-	
-	      var view = this;
-	
-	      $('.square').click(function (event) {
-	        var $square = $(event.currentTarget);
-	        var currentPos = $square.data("pos");
-	        if (_this.game.playMove(currentPos)) {
-	          view.updateBoard();
-	        }
-	      });
-	    }
-	  }, {
-	    key: "updateBoard",
-	    value: function updateBoard() {
-	      var $grid = $('.grid');
-	      var flattenedBoard = this.game.flattenedBoard();
-	
-	      $grid.empty();
-	      this.appendSquares($grid);
-	
-	      this.setupEvents();
-	    }
-	  }, {
-	    key: "appendSquares",
-	    value: function appendSquares($grid) {
-	      for (var rowIdx = 0; rowIdx < 4; rowIdx++) {
-	        for (var colIdx = 0; colIdx < 4; colIdx++) {
-	          var $square = $('<li>');
-	          $square.addClass("square");
-	          $square.data("pos", [rowIdx, colIdx]);
-	          $square.html(this.game.getElement([rowIdx, colIdx]));
-	
-	          $grid.append($square);
-	        }
-	      }
-	    }
-	  }]);
-	
-	  return View;
-	}();
-	
-	module.exports = View;
-
-/***/ },
-/* 3 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -340,6 +272,86 @@
 	}();
 	
 	module.exports = Board;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var View = function () {
+	  function View(game, $el) {
+	    _classCallCheck(this, View);
+	
+	    this.game = game;
+	    this.$el = $el;
+	
+	    this.setupBoard();
+	  }
+	
+	  _createClass(View, [{
+	    key: "setupBoard",
+	    value: function setupBoard() {
+	      var $grid = $('<ul>');
+	      $grid.addClass("grid");
+	      $grid.addClass("group");
+	
+	      this.appendSquares($grid);
+	
+	      this.$el.append($grid);
+	
+	      this.setupEvents();
+	    }
+	  }, {
+	    key: "setupEvents",
+	    value: function setupEvents() {
+	      var _this = this;
+	
+	      var view = this;
+	
+	      $('.square').click(function (event) {
+	        var $square = $(event.currentTarget);
+	        var currentPos = $square.data("pos");
+	        if (_this.game.playMove(currentPos)) {
+	          view.updateBoard();
+	        }
+	      });
+	    }
+	  }, {
+	    key: "updateBoard",
+	    value: function updateBoard() {
+	      var $grid = $('.grid');
+	      var flattenedBoard = this.game.flattenedBoard();
+	
+	      $grid.empty();
+	      this.appendSquares($grid);
+	
+	      this.setupEvents();
+	    }
+	  }, {
+	    key: "appendSquares",
+	    value: function appendSquares($grid) {
+	      for (var rowIdx = 0; rowIdx < 4; rowIdx++) {
+	        for (var colIdx = 0; colIdx < 4; colIdx++) {
+	          var $square = $('<li>');
+	          $square.addClass("square");
+	          $square.data("pos", [rowIdx, colIdx]);
+	          $square.html(this.game.getElement([rowIdx, colIdx]));
+	
+	          $grid.append($square);
+	        }
+	      }
+	    }
+	  }]);
+	
+	  return View;
+	}();
+	
+	module.exports = View;
 
 /***/ }
 /******/ ]);
