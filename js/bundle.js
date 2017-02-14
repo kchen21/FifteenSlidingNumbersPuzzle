@@ -345,7 +345,14 @@
 	          var $square = $('<li>');
 	          $square.addClass("square");
 	          $square.data("pos", [rowIdx, colIdx]);
-	          $square.html(this.game.getElement([rowIdx, colIdx]));
+	          var element = this.game.getElement([rowIdx, colIdx]);
+	          $square.html(element);
+	
+	          if (element === " ") {
+	            $square.addClass("space");
+	          } else {
+	            $square.addClass("number");
+	          }
 	
 	          $grid.append($square);
 	        }

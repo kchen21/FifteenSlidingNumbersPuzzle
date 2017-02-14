@@ -33,13 +33,20 @@ li {
   width: 90px;
   height: 90px;
   border: 5px solid black;
-  background: gray;
-  cursor: pointer;
   line-height: 90px;
   font-size: 28px;
 }
 
-li:hover {
+.space {
+  background: white;
+}
+
+.number {
+  background: gray;
+}
+
+.number:hover {
+  cursor: pointer;
   background: yellow;
 }
 
