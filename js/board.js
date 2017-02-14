@@ -1,6 +1,7 @@
 class Board {
   constructor() {
     this.grid = Board.makeGrid();
+    this.locationOfSpace = null;
   }
 
   populateGrid() {
@@ -14,7 +15,13 @@ class Board {
 
     for (let rowIdx = 0; rowIdx < 4; rowIdx++) {
       for (let colIdx = 0; colIdx < 4; colIdx++) {
-        this.grid[rowIdx][colIdx] = gridElements.pop();
+        let element = gridElements.pop();
+
+        if (element === " ") {
+          this.locationOfSpace = [rowIdx, colIdx];
+        }
+
+        this.grid[rowIdx][colIdx] = element;
       }
     }
   }

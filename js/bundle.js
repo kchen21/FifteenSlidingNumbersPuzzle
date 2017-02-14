@@ -65,7 +65,7 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var Board = __webpack_require__(4);
+	var Board = __webpack_require__(3);
 	
 	var Game = function () {
 	  function Game() {
@@ -112,6 +112,37 @@
 	    key: "populateBoard",
 	    value: function populateBoard() {
 	      this.board.populateGrid();
+	    }
+	  }, {
+	    key: "isSolvable",
+	    value: function isSolvable() {
+	      var rowIdxOfSpace = this.board.locationOfSpace[0];
+	
+	      if (rowIdxOfSpace % 2 === 0 && this.numOfInversions() % 2 === 0) {
+	        return false;
+	      }
+	
+	      if (rowIdxOfSpace % 2 === 1 && this.numOfInversions() % 2 === 1) {
+	        return false;
+	      }
+	
+	      return true;
+	    }
+	  }, {
+	    key: "numOfInversions",
+	    value: function numOfInversions() {
+	      var flattenedBoard = this.flattenedBoard();
+	      var inversionCount = 0;
+	
+	      for (var i = 0; i < flattenedBoard.length; i++) {
+	        for (var j = i + 1; j < flattenedBoard.length; j++) {
+	          if (flattenedBoard[i] > flattenedBoard[j]) {
+	            inversionCount += 1;
+	          }
+	        }
+	      }
+	
+	      return inversionCount;
 	    }
 	  }]);
 	
@@ -201,8 +232,7 @@
 	module.exports = View;
 
 /***/ },
-/* 3 */,
-/* 4 */
+/* 3 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -216,6 +246,7 @@
 	    _classCallCheck(this, Board);
 	
 	    this.grid = Board.makeGrid();
+	    this.locationOfSpace = null;
 	  }
 	
 	  _createClass(Board, [{
@@ -231,7 +262,13 @@
 	
 	      for (var rowIdx = 0; rowIdx < 4; rowIdx++) {
 	        for (var colIdx = 0; colIdx < 4; colIdx++) {
-	          this.grid[rowIdx][colIdx] = gridElements.pop();
+	          var element = gridElements.pop();
+	
+	          if (element === " ") {
+	            this.locationOfSpace = [rowIdx, colIdx];
+	          }
+	
+	          this.grid[rowIdx][colIdx] = element;
 	        }
 	      }
 	    }
