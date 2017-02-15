@@ -45,7 +45,7 @@ li {
   background: gray;
 }
 
-.number:hover {
+.space-adjacent:hover {
   cursor: pointer;
   background: yellow;
 }

@@ -306,8 +306,8 @@
 	      $grid.addClass("group");
 	
 	      this.appendSquares($grid);
-	
 	      this.$el.append($grid);
+	      this.tagAllSpaceAdjacentSquares();
 	
 	      this.setupEvents();
 	    }
@@ -318,7 +318,7 @@
 	
 	      var view = this;
 	
-	      $('.square').click(function (event) {
+	      $('.space-adjacent').click(function (event) {
 	        var $square = $(event.currentTarget);
 	        var currentPos = $square.data("pos");
 	        if (_this.game.playMove(currentPos)) {
@@ -334,6 +334,7 @@
 	
 	      $grid.empty();
 	      this.appendSquares($grid);
+	      this.tagAllSpaceAdjacentSquares();
 	
 	      this.setupEvents();
 	    }
@@ -356,6 +357,28 @@
 	
 	          $grid.append($square);
 	        }
+	      }
+	    }
+	  }, {
+	    key: "tagAllSpaceAdjacentSquares",
+	    value: function tagAllSpaceAdjacentSquares() {
+	      var $squares = $('.square');
+	      var idxOfSpace = $squares.index($('.space')[0]);
+	
+	      if (idxOfSpace - 4 >= 0) {
+	        $($squares[idxOfSpace - 4]).addClass('space-adjacent');
+	      }
+	
+	      if (idxOfSpace + 4 <= 15) {
+	        $($squares[idxOfSpace + 4]).addClass('space-adjacent');
+	      }
+	
+	      if (idxOfSpace % 4 !== 0) {
+	        $($squares[idxOfSpace - 1]).addClass('space-adjacent');
+	      }
+	
+	      if (idxOfSpace % 4 !== 3) {
+	        $($squares[idxOfSpace + 1]).addClass('space-adjacent');
 	      }
 	    }
 	  }]);
